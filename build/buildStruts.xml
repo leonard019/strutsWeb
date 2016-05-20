@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	http://localhost:8080/StrutsHello/
+ -->
+<project name="Struts2Hello" default="war"> 
+ 
+  	<property name="src.dir" value="../src" />
+    <property name="lib.dir" value="../WebContent/WEB-INF/lib" />
+    <property name="web.xml" value="../WebContent/WEB-INF/web.xml" />
+    <property name="WebContent" value="../WebContent" ></property>
+    
+    <property name="build.dir" value="build" />
+    <property name="dist.dir" value="dist" />
+    
+    <path id="compile.classpath"> 
+        <fileset dir="${lib.dir}"> 
+            <include name="*.jar"/> 
+        </fileset> 
+    </path> 
+     
+    <target name="clean"> 
+        <delete dir="dist" /> 
+        <delete dir="build" /> 
+    </target> 
+    
+    <target name="init" depends="clean" > 
+        <mkdir dir="build/classes"/> 
+        <mkdir dir="dist" /> 
+    </target> 
+     
+    <target name="compile" depends="init" > 
+        <javac destdir="build/classes" debug="true" srcdir="${src.dir}"> 
+            <classpath refid="compile.classpath"/> 
+        </javac> 
+    </target> 
+     
+    <target name="war" depends="compile"> 
+        <war destfile="dist/StrutsHello.war" webxml="${web.xml}"> 
+            <fileset dir="${WebContent}"/> 
+            <!--
+            <lib dir="WebContent/WEB-INF/lib"/> 
+            -->
+            <lib dir="${lib.dir}" />
+            <classes dir="build/classes"/> 
+        </war> 
+    </target> 
+     
+   
+     
+</project> 
